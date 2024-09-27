@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Checker Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">URL Checker Report</h1>
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Status Code</th>
+                    <th>Screenshot</th>
+                    <th>Broken Links</th>
+                    <th>Console Errors</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% results.forEach(({ url, statusCode, screenshotPath, brokenLinks, consoleErrors }) => { %>
+                    <tr>
+                        <td><%= url %></td>
+                        <td><%= statusCode %></td>
+                        <td>
+                            <img src="/screenshots/<%= encodeURIComponent(screenshotPath.split('/').pop()) %>" alt="Screenshot" style="width: 100px;">
+                        </td>
+                        
+                        <td>
+                            <ul>
+                                <% brokenLinks.forEach(link => { %>
+                                    <li><%= link %></li>
+                                <% }); %>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <% consoleErrors.forEach(error => { %>
+                                    <li><%= error %></li>
+                                <% }); %>
+                            </ul>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
